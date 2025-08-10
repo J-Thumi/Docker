@@ -68,3 +68,67 @@ Because containers are disposable, volumes let you keep things like databases be
 ### Networks
 Containers can communicate with each other over Docker networks.
 Useful in microservices setups (e.g., web service container talking to a database container).
+
+### Layers 
+Every instruction in a Dockerfile creates a layer. Layers are cached so rebuilds are faster.
+
+### Base Image
+The starting point (e.g., python:3.12, golang:1.21-alpine, or ubuntu:22.04)
+
+### Build Context 
+The directory you run docker build from. All files inside are available to the Docker build.
+
+### Caching 
+If nothing changes in a layer, Docker uses the cached version to speed up builds.
+
+### Small Image Size 
+Use minimal images (e.g., alpine) to reduce size and security risks.
+
+## Writing a Dockerfile
+
+A Dockerfile is simply a text file containing a set of instructions for building a Docker image.
+You tell Docker:
+
+* Which base OS or base image to start from
+* Which files to copy in
+* Which dependencies to install
+* Which commands to run
+* Which ports to expose
+* What command to execute when the container starts
+
+###  Common Dockerfile Instructions
+
+| Instruction     | Purpose                                                     | Example                                         |
+| --------------- | ----------------------------------------------------------- | ----------------------------------------------- |
+| `FROM`          | Set base image                                              | `FROM node:20-alpine`                           |
+| `WORKDIR`       | Set working directory                                       | `WORKDIR /app`                                  |
+| `COPY`          | Copy files from host to image                               | `COPY . /app`                                   |
+| `ADD`           | Like `COPY` but can also extract archives and download URLs | `ADD app.tar.gz /app`                           |
+| `RUN`           | Execute commands in the image during build                  | `RUN apt-get update && apt-get install -y curl` |
+| `ENV`           | Set environment variables                                   | `ENV PORT=8080`                                 |
+| `EXPOSE`        | Declare the port the app listens on                         | `EXPOSE 8080`                                   |
+| `CMD`           | Default command when container starts                       | `CMD ["node", "server.js"]`                     |
+| `ENTRYPOINT`    | Similar to CMD but always runs first                        | `ENTRYPOINT ["python"]`                         |
+| `ARG`           | Pass build-time variables                                   | `ARG NODE_VERSION=20`                           |
+| `.dockerignore` | File to exclude files from build                            | `node_modules`                                  |
+
+
+### Best Practices
+* Minimize layers – Combine `RUN` commands with &&
+* Use .dockerignore – Prevent copying unnecessary files (like node_modules)
+* Pin versions – Avoid "latest" for reproducibility
+* Use multi-stage builds – Compile in one stage, copy only final output into a smaller image
+* Keep images small – Use Alpine or slim versions
+* Separate config from code – Use `ENV` or bind mounts
+
+
+###  The Dockerfile Build Process
+
+`docker build -t myimage .` OR `docker build -t myimage:1.0 .`
+
+`myimage` is the name of the image.
+`tag` is a label for that image version (e.g., `v1.0`, `latest`, `dev`).
+The `.` means “build using the Dockerfile in the current directory.”
+
+**Tagging** is optional, but important for versioning.
+Without a tag, it defaults to `:latest`, which can get confusing when managing multiple builds.
