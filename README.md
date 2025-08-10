@@ -1,6 +1,5 @@
 # Docker
----
----
+
 ## What is Docker?
 
 Docker is a platform for developing, packaging, and running applications in containers.
@@ -11,7 +10,7 @@ With Docker → You package everything the app needs (code, runtime, libraries, 
 ***
 
 ## Key Concepts
-###Image
+### Image
 A blueprint for a container.
 Contains your application code + all the dependencies + environment configuration.
 Created from a **Dockerfile** (a script with instructions for building the image).
