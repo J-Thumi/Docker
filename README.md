@@ -113,6 +113,7 @@ You tell Docker:
 | `.dockerignore` | File to exclude files from build                            | `node_modules`                                  |
 
 [cheat sheet]("cheat.jpeg")
+<img src="cheat.jpeg"/>
 
 ### Best Practices
 * Minimize layers – Combine `RUN` commands with &&
