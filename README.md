@@ -112,7 +112,7 @@ You tell Docker:
 | `ARG`           | Pass build-time variables                                   | `ARG NODE_VERSION=20`                           |
 | `.dockerignore` | File to exclude files from build                            | `node_modules`                                  |
 
-![cheat sheet]("WhatsApp Image 2025-08-13 at 09.00.42.jpeg")
+![cheat sheet]("cheat.jpeg")
 
 ### Best Practices
 * Minimize layers – Combine `RUN` commands with &&
